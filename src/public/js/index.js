@@ -23,7 +23,7 @@ get_data()
 
 async function get_data() {
   try {
-    let res = await fetch('http://localhost:4000/all/user')
+    let res = await fetch('https://auth0-server.herokuapp.com/all/user')
     res = await res.json()
 
     if (res['ERROR']) {
@@ -62,7 +62,7 @@ function user_list_render(data) {
         li.id = id
         li.classList.add('channel')
         li.innerHTML = `<a href="#">
-              <img src="http://localhost:4000${avatar}" alt="channel-icon" width="30px" height="30px">
+              <img src="https://auth0-server.herokuapp.com${avatar}" alt="channel-icon" width="30px" height="30px">
               <span>${username}</span>
               </a>`
         li.onclick = async () => {
@@ -74,7 +74,7 @@ function user_list_render(data) {
             li.classList.add('active')
 
             let res = await fetch(
-              'http://localhost:4000/search' + '?US=' + li.id
+              'https://auth0-server.herokuapp.com/search' + '?US=' + li.id
             )
             res = await res.json()
 
@@ -125,10 +125,16 @@ function video_list_render(data) {
             time.className = 'uploaded-time'
             a.className = 'download'
 
-            video.setAttribute('src', 'http://localhost:4000' + path)
+            video.setAttribute(
+              'src',
+              'https://auth0-server.herokuapp.com' + path
+            )
             video.setAttribute('controls', 'controls')
             a.setAttribute('href', '#')
-            img.setAttribute('src', 'http://localhost:4000' + avatar)
+            img.setAttribute(
+              'src',
+              'https://auth0-server.herokuapp.com' + avatar
+            )
             img2.setAttribute('src', './img/download.png')
 
             span.innerText = size + ' mb'
@@ -138,7 +144,7 @@ function video_list_render(data) {
 
             a.onclick = async () => {
               try {
-                location = `http://localhost:4000/download?u=${path}`
+                location = `https://auth0-server.herokuapp.com/download?u=${path}`
               } catch (_xato) {
                 console.log(_xato)
               }
@@ -164,7 +170,7 @@ let user_avatar_img = document.querySelector(
 if (localStorage.getItem('img')) {
   user_avatar_img.setAttribute(
     'src',
-    'http://localhost:4000' + localStorage.getItem('img')
+    'https://auth0-server.herokuapp.com' + localStorage.getItem('img')
   )
 }
 
@@ -203,7 +209,9 @@ async function for_search_form(eve) {
     if (!search_form_inp.value) return
 
     let res = await fetch(
-      'http://localhost:4000/search' + '?s=' + search_form_inp.value
+      'https://auth0-server.herokuapp.com/search' +
+        '?s=' +
+        search_form_inp.value
     )
     res = await res.json()
     if (res['ERROR']) {

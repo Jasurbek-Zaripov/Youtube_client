@@ -10,7 +10,7 @@ async function render_list_video() {
     if (!token) {
       return (location = '/')
     }
-    let res = await fetch('http://localhost:4000/video/all', {
+    let res = await fetch('https://auth0-server.herokuapp.com/video/all', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -46,7 +46,7 @@ admin_form.onsubmit = async eve => {
     }
     let fd = new FormData(admin_form)
 
-    let res = await fetch('http://localhost:4000/video/new', {
+    let res = await fetch('https://auth0-server.herokuapp.com/video/new', {
       method: 'POST',
       headers: {
         token,
@@ -86,7 +86,7 @@ function render_list(videos) {
 
       p.id = id
 
-      v.setAttribute('src', 'http://localhost:4000' + path)
+      v.setAttribute('src', 'https://auth0-server.herokuapp.com' + path)
       v.setAttribute('controls', 'controls')
       im.setAttribute('src', './img/delete.png')
       p.setAttribute('contenteditable', 'true')
@@ -103,14 +103,17 @@ function render_list(videos) {
           if (!token) {
             return (location = '/')
           }
-          let res = await fetch('http://localhost:4000/video/old', {
-            method: 'PUT',
-            headers: {
-              'content-type': 'application/json',
-              token,
-            },
-            body: JSON.stringify({ vide_id: p.id, newTitle: p.innerText }),
-          })
+          let res = await fetch(
+            'https://auth0-server.herokuapp.com/video/old',
+            {
+              method: 'PUT',
+              headers: {
+                'content-type': 'application/json',
+                token,
+              },
+              body: JSON.stringify({ vide_id: p.id, newTitle: p.innerText }),
+            }
+          )
           res = await res.json()
           if (res['ERROR']) {
             if (/(jwt)/.test(res['ERROR'])) {
@@ -133,14 +136,17 @@ function render_list(videos) {
           if (!token) {
             return (location = '/')
           }
-          let res = await fetch('http://localhost:4000/video/old', {
-            method: 'DELETE',
-            headers: {
-              'content-type': 'application/json',
-              token,
-            },
-            body: JSON.stringify({ vide_id: p.id }),
-          })
+          let res = await fetch(
+            'https://auth0-server.herokuapp.com/video/old',
+            {
+              method: 'DELETE',
+              headers: {
+                'content-type': 'application/json',
+                token,
+              },
+              body: JSON.stringify({ vide_id: p.id }),
+            }
+          )
           res = await res.json()
           if (res['ERROR']) {
             if (/(jwt)/.test(res['ERROR'])) {

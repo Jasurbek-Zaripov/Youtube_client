@@ -15,7 +15,7 @@ register_form.onsubmit = async ev => {
     ev.preventDefault()
     let fd = new FormData(register_form)
 
-    let res = await fetch('http://localhost:4000/user/new', {
+    let res = await fetch('https://auth0-server.herokuapp.com/user/new', {
       method: 'POST',
       body: fd,
     })

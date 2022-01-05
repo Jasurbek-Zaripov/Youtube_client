@@ -15,7 +15,7 @@ login_form.onsubmit = async ev => {
   try {
     ev.preventDefault()
 
-    let res = await fetch('http://localhost:4000/user/old', {
+    let res = await fetch('https://auth0-server.herokuapp.com/user/old', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
